@@ -18,11 +18,11 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        run: pip install requests
-
-      # Debug - Kiểm tra cấu trúc thư mục repo
-      - name: Debug - Check repo structure
-        run: ls -R
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            pip install requests beautifulsoup4
 
       - name: Run bot
         env:
