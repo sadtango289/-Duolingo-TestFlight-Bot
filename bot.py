@@ -1,0 +1,1 @@
+print("Hello, Duolingo Bot!")
