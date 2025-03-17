@@ -1,0 +1,28 @@
+name: Check Duolingo TestFlight
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"  # Chạy mỗi 10 phút
+  workflow_dispatch:  # Cho phép chạy thủ công
+
+jobs:
+  check_testflight:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Lấy mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Cài đặt Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Cài đặt thư viện
+        run: pip install requests
+
+      - name: Chạy script kiểm tra TestFlight
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python duolingo_testflight_bot.py
